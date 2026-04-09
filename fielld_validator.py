@@ -5,4 +5,11 @@ class Patient(BaseModel):
     
     name : str
     Email:EmailStr
-    age
+    age :int 
+    weight : float
+    married : bool
+    allergies : list[str]
+    contact_detail: Dict[str, str]
+    
+    
+    
