@@ -11,7 +11,7 @@ class Patient(BaseModel):
     allergies: Annotated[Optional[List[str]], Field(default=None, max_length=5)]
     contact_details: Dict[str, str]
     
-def update_patient_data(patient:patient):
+def update_patient_data(patient: Patient):
       print(patient.name)
       print(patient.age)  
       print(patient.allergies)  
