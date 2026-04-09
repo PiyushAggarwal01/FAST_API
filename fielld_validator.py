@@ -1,20 +1,19 @@
-from pydantic import BaseModel, EmailStr, anyurl , field , field_validator
-from typing import list , Dict , optimal , Annotated
+from pydantic import BaseModel, EmailStr, AnyUrl, Field, field_validator
+from typing import List, Dict, Optional, Annotated
 
 class Patient(BaseModel):
-    
-    name : str
-    Email:EmailStr
-    age :int 
-    weight : float
-    married : bool
-    allergies : list[str]
-    contact_detail: Dict[str, str]
-    
-@field_validator('email')
-@classmethod
-@classmethod
-def email_validator(cls, value):
+
+    name: str
+    email: EmailStr
+    age: int
+    weight: float
+    married: bool
+    allergies: List[str]
+    contact_details: Dict[str, str]
+
+    @field_validator('email')
+    @classmethod
+    def email_validator(cls, value):
 
         valid_domains = ['hdfc.com', 'icici.com']
         # abc@gmail.com
@@ -22,28 +21,33 @@ def email_validator(cls, value):
 
         if domain_name not in valid_domains:
             raise ValueError('Not a valid domain')
-        return value
 
+        return value
     
-@field_validator('name')
-@classmethod
-def transform_name(cls, value):
+    @field_validator('name')
+    @classmethod
+    def transform_name(cls, value):
         return value.upper()
-@field_validator('age', mode='after')
-@classmethod
-def validate_age(cls, value):
+    
+    @field_validator('age', mode='after')
+    @classmethod
+    def validate_age(cls, value):
         if 0 < value < 100:
             return value
         else:
             raise ValueError('Age should be in between 0 and 100')
 
-def update_patient(patient.Patient):
+
+def update_patient_data(patient: Patient):
+
     print(patient.name)
     print(patient.age)
     print(patient.allergies)
     print(patient.married)
-    print(patient.updated)
-     
-patient_info = {'name':'piyush','email':'piyush@icici.com', 'age':19, 'weight':55.250, 'married ': False ,'allergies': ['no disease'], 'conatact_detail':{'phone':'7526980703'} }
-patient2  = Patient(**patient_info)
-update_patient(patient2)
+    print('updated')
+
+patient_info = {'name':'piyush', 'email':'abc@icici.com', 'age': '30', 'weight': 75.2, 'married': True, 'allergies': ['pollen', 'dust'], 'contact_details':{'phone':'2353462'}}
+
+patient1 = Patient(**patient_info) # validation -> type coercion
+
+update_patient_data(patient1)
