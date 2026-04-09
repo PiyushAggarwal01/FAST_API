@@ -29,6 +29,6 @@ def update_patient_data(patient: Patient):
 
 patient_info = {'name':'nitish', 'email':'abc@icici.com', 'age': '65', 'weight': 75.2, 'married': True, 'allergies': ['pollen', 'dust'], 'contact_details':{'phone':'2353462', 'emergency':'235236'}}
 
-patient3 = Patient(**patient_info) 
+patient1 = Patient(**patient_info) 
 
-update_patient_data(patient3)
+update_patient_data(patient1)
