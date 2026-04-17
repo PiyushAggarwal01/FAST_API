@@ -79,3 +79,7 @@ class UserInput(Basemodel):
         'income_lpa': data.income_lpa,
         'occupation': data.occupation
     }])
+        prediction = model.predict(input_df)[0]
+        return Jsonresponse(status_code = 200 ,content = {'predicted_category': prediction})
+    
+        
