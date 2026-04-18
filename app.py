@@ -2,12 +2,13 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, computed_field
 from typing import Literal , Annotated
-import pickle 
 import pandas as pd 
 
 # now importing tye model 
-with open('model.pkl', 'rb') as f:
-    model = pickle.load(f)
+import pickle
+
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
 
 app = FastAPI()
 tier_1_cities = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata", "Hyderabad", "Pune"]
