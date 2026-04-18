@@ -15,7 +15,8 @@ smoker = st.selectbox("Are you a smoker?", options=[True, False])
 city = st.text_input("City", value="Mumbai")
 occupation = st.selectbox(
     "Occupation",
-    ['retired', 'freelancer', 'student', 'government_job', 'business_owner', 'unemployed', 'private_job']
+    ['retired', 'freelancer', 'student', 'government_job',
+     'business_owner', 'unemployed', 'private_job']
 )
 
 if st.button("Predict Premium Category"):
@@ -33,12 +34,11 @@ if st.button("Predict Premium Category"):
         response = requests.post(API_URL, json=input_data)
         result = response.json()
 
-        if response.status_code == 200 and "response" in result:
-            prediction = result["response"]
-            st.success(f"Predicted Insurance Premium Category: **{prediction['predicted_category']}**")
-            st.write("🔍 Confidence:", prediction["confidence"])
-            st.write("📊 Class Probabilities:")
-            st.json(prediction["class_probabilities"])
+        # ✅ FIXED CONDITION
+        if response.status_code == 200:
+            prediction = result["predicted_category"]
+
+            st.success(f"Predicted Insurance Premium Category: **{prediction}**")
 
         else:
             st.error(f"API Error: {response.status_code}")
